@@ -1,14 +1,21 @@
 package com.example.patryk.calcrpn
 
 import android.os.Environment
+import java.io.Serializable
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.sign
 import kotlin.math.sqrt
 
-public  class Calculator
+public  class Calculator : Serializable
 {
     private var numbersInStack: Deque<Double> = ArrayDeque<Double>()
+    private var historyStack: Deque<Deque<Double>> = ArrayDeque<Deque<Double>>()
+    private var precission = 2
+
+    public fun SetPrecission(precission: String){
+        this.precission = precission.toInt();
+    }
 
     public fun GetCountStack() : String {
         return numbersInStack.count().toString()
@@ -53,13 +60,16 @@ public  class Calculator
         numbersInStack.push(beforeLastElement)
     }
 
-    public fun GetStack(): String {
+    public fun GetStack(isUndo: Boolean): String {
         var text = ""
         var i = numbersInStack.count()
 
         numbersInStack.forEach() {
-            text += i.toString() + "    "  + it.toString() + "\n"
+            text += i.toString() + "    "  + String.format("%." + precission +"f",it) + "\n"
             i--
+        }
+        if(!isUndo){
+            addHistory()
         }
         return  text
     }
@@ -113,6 +123,23 @@ public  class Calculator
         numbersInStack.addLast(numberStack)
     }
 
+
+    public fun UndoOperation(){
+        historyStack.removeFirst()
+        var tmp : Deque<Double> = ArrayDeque<Double>(historyStack.first())
+        numbersInStack = tmp
+
+    }
+
+
+    private fun addHistory(){
+        if(historyStack.count() > 10)
+        {
+            historyStack.removeLast()
+        }
+        var tmp : Deque<Double> = ArrayDeque<Double>(numbersInStack)
+        historyStack.push(tmp)
+    }
 
 
 

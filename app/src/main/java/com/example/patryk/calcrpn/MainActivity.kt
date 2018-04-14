@@ -1,5 +1,8 @@
 package com.example.patryk.calcrpn
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -16,8 +19,41 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            var color = Color.WHITE
+            if((requestCode == 0) && (resultCode == Activity.RESULT_OK)) {
+                if (data != null) {
+                    if (data.hasExtra("Precission")) {
+                        //calculator.SetPrecission("Precission")
+                        calculator.SetPrecission((data.getStringExtra("Precission")))
+                    }
+                    if (data.hasExtra("Color")) {
+                        var colorString = data.getStringExtra("Color")
+                        when (colorString) {
+                            "Red" -> {
+                                color = Color.RED
+                            }
+                            "White" ->{
+                                color = Color.WHITE
+                            }
+                            "Green" ->{
+                                color = Color.GREEN
+                            }
+                        }
+                        textView.setBackgroundColor(color)
+                        textViewCurrentText.setBackgroundColor(color)
+                    }
+                }
+            }
+        RefreshTextView()
+    }
 
+    public fun OpenSetting(v:View){
+        val intent = Intent(this,SettingsActivity::class.java)
+        intent.putExtra("Calc", calculator)
+        startActivityForResult(intent,0);
     }
 
     public fun AddOne(v: View){
@@ -101,6 +137,11 @@ class MainActivity : AppCompatActivity() {
         SetValue()
     }
 
+    public fun UndoOperation(v: View){
+        calculator.UndoOperation()
+        RefreshTextView(true)
+    }
+
     public fun SwapElement(v:View){
         calculator.SwapStack()
         RefreshTextView()
@@ -149,10 +190,12 @@ class MainActivity : AppCompatActivity() {
         numberToSend = ""
     }
 
-    private fun RefreshTextView(){
+    private fun RefreshTextView(isUndo  : Boolean = false){
         SetValue()
-        textView.text = calculator.GetStack()
+        textView.text = calculator.GetStack(isUndo)
         textViewCountStack.text = calculator.GetCountStack()
     }
 
 }
+
+
