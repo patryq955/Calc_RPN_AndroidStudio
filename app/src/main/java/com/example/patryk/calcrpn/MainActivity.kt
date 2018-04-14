@@ -50,63 +50,63 @@ class MainActivity : AppCompatActivity() {
         RefreshTextView()
     }
 
-    public fun OpenSetting(v:View){
+    fun OpenSetting(v:View){
         val intent = Intent(this,SettingsActivity::class.java)
         intent.putExtra("Calc", calculator)
         startActivityForResult(intent,0);
     }
 
-    public fun AddOne(v: View){
+    fun AddOne(v: View){
         numberToSend += "1"
         SetValue()
     }
 
-    public fun AddTwo(v: View){
+    fun AddTwo(v: View){
         numberToSend += "2"
         SetValue()
     }
 
-    public fun AddThree(v: View){
+    fun AddThree(v: View){
         numberToSend += "3"
         SetValue()
     }
 
-    public fun AddFour(v: View){
+    fun AddFour(v: View){
         numberToSend += "4"
         SetValue()
     }
 
-    public fun AddFive(v: View){
+    fun AddFive(v: View){
         numberToSend += "5"
         SetValue()
     }
 
-    public fun AddSix(v: View){
+    fun AddSix(v: View){
         numberToSend += "6"
         SetValue()
     }
 
-    public fun AddSeven(v: View){
+    fun AddSeven(v: View){
         numberToSend += "7"
         SetValue()
     }
 
-    public fun AddEight(v: View){
+    fun AddEight(v: View){
         numberToSend += "8"
         SetValue()
     }
 
-    public fun AddNine(v: View){
+    fun AddNine(v: View){
         numberToSend += "9"
         SetValue()
     }
 
-    public fun AddZero(v:View){
+    fun AddZero(v:View){
         numberToSend +="0"
         SetValue()
     }
 
-    public fun AddPoint(v:View){
+    fun AddPoint(v:View){
         if(!numberToSend.contains("."))
         {
             numberToSend += "."
@@ -114,70 +114,70 @@ class MainActivity : AppCompatActivity() {
         SetValue()
     }
 
-    public fun AddElement(v: View){
+    fun AddElement(v: View){
         calculator.AddToStack(numberToSend)
         ClearValue()
         RefreshTextView()
     }
 
-    public fun RemoveLastElement(v: View){
+    fun RemoveLastElement(v: View){
         calculator.DropWithStack()
         RefreshTextView()
     }
 
-    public fun ClearElement(v:View){
+    fun ClearElement(v:View){
         calculator.ClearStack()
         RefreshTextView()
     }
 
-    public fun DeleteDigit(v:View){
+    fun DeleteDigit(v:View){
         if(numberToSend.length == 0)
             return
         numberToSend = numberToSend.dropLast(1)
         SetValue()
     }
 
-    public fun UndoOperation(v: View){
+    fun UndoOperation(v: View){
         calculator.UndoOperation()
         RefreshTextView(true)
     }
 
-    public fun SwapElement(v:View){
+    fun SwapElement(v:View){
         calculator.SwapStack()
         RefreshTextView()
     }
 
-    public fun ChangeSign(v:View){
+    fun ChangeSign(v:View){
         calculator.ChangeSignLastElemt()
         RefreshTextView()
     }
 
-    public fun Sum(v: View){
+    fun Sum(v: View){
         calculator.OperationOnStack(Operation.Sum)
         RefreshTextView()
     }
 
-    public  fun Minus(v:View){
+     fun Minus(v:View){
         calculator.OperationOnStack(Operation.Minus)
         RefreshTextView()
     }
 
-    public fun Devided(v:View){
+    fun Devided(v:View){
         calculator.OperationOnStack(Operation.Devided)
         RefreshTextView()
     }
 
-    public fun Multiple(v:View){
+    fun Multiple(v:View){
         calculator.OperationOnStack(Operation.Multiple)
         RefreshTextView()
     }
 
-    public fun Power(v:View){
+    fun Power(v:View){
         calculator.OperationOnStack(Operation.Power)
         RefreshTextView()
     }
 
-    public fun Sqrt(v:View){
+    fun Sqrt(v:View){
         calculator.OperationOnStack(Operation.Sqrt)
         RefreshTextView()
     }

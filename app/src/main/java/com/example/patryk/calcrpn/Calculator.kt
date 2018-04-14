@@ -13,15 +13,15 @@ public  class Calculator : Serializable
     private var historyStack: Deque<Deque<Double>> = ArrayDeque<Deque<Double>>()
     private var precission = 2
 
-    public fun SetPrecission(precission: String){
+    fun SetPrecission(precission: String){
         this.precission = precission.toInt();
     }
 
-    public fun GetCountStack() : String {
+    fun GetCountStack() : String {
         return numbersInStack.count().toString()
     }
 
-    public fun AddToStack(element: String){
+    fun AddToStack(element: String){
         if(element.isNullOrEmpty())
         {
             if(numbersInStack.count() == 0)
@@ -41,15 +41,15 @@ public  class Calculator : Serializable
         numbersInStack.push(numberToAddStack)
     }
 
-    public  fun DropWithStack(){
+    fun DropWithStack(){
         numbersInStack.removeFirst()
     }
 
-    public  fun ClearStack(){
+    fun ClearStack(){
         numbersInStack.clear()
     }
 
-    public fun SwapStack(){
+    fun SwapStack(){
         var lastElement = numbersInStack.first()
         numbersInStack.removeFirst()
 
@@ -60,7 +60,7 @@ public  class Calculator : Serializable
         numbersInStack.push(beforeLastElement)
     }
 
-    public fun GetStack(isUndo: Boolean): String {
+    fun GetStack(isUndo: Boolean): String {
         var text = ""
         var i = numbersInStack.count()
 
@@ -74,7 +74,7 @@ public  class Calculator : Serializable
         return  text
     }
 
-    public  fun OperationOnStack(typeOperation: Operation){
+    fun OperationOnStack(typeOperation: Operation){
         val resultSum : Double
 
         if(numbersInStack.count() < 2 || typeOperation == Operation.Sqrt)
@@ -116,7 +116,7 @@ public  class Calculator : Serializable
         numbersInStack.push(resultSum)
     }
 
-    public fun ChangeSignLastElemt(){
+    fun ChangeSignLastElemt(){
         var numberStack = numbersInStack.last()
         numbersInStack.removeLast()
         numberStack = numberStack * -1
@@ -124,11 +124,10 @@ public  class Calculator : Serializable
     }
 
 
-    public fun UndoOperation(){
+    fun UndoOperation(){
         historyStack.removeFirst()
         var tmp : Deque<Double> = ArrayDeque<Double>(historyStack.first())
         numbersInStack = tmp
-
     }
 
 
