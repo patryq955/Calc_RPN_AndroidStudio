@@ -36,7 +36,7 @@ public  class Calculator : Serializable
         var numberToAddStack = element.toDoubleOrNull()
         if(numberToAddStack == null)
         {
-            throw NullPointerException()
+            throw NullPointerException() as Throwable
         }
         numbersInStack.push(numberToAddStack)
     }
